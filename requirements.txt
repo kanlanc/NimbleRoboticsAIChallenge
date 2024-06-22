@@ -1,0 +1,8 @@
+opencv-python
+numpy
+aiortc
+aiohttp
+scipy
+asyncio
+
+

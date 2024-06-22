@@ -1,0 +1,23 @@
+
+services:
+  webrtc-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "9001:9001"
+      - "9002:9002"
+    volumes:
+      - ./server:/server
+
+  webrtc-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "9003:9001"  # Assuming client also uses similar ports, remapped to avoid conflict
+      - "9004:9002"
+    volumes:
+      - ./client:/client
+    depends_on:
+      - webrtc-server

@@ -1,11 +1,11 @@
-import client, server1 as server
+import client, server as server
 
 import cv2
 
 from multiprocessing import Process,  Manager
 
 
-def view_ball():
+def test_ball_moving():
     ball = server.BouncingBall(500, 500, 20)
     while True:
         updated_ball = ball.increment_ball()
@@ -16,17 +16,17 @@ def view_ball():
             break
 
 
-def test_finding_circle_error_after_one_slow_increment():
+def test_error_finding():
     queue_a = Manager().Queue()
     queue_b = Manager().Queue()
     queue_c = Manager().Queue()
 
-    ball = server.BouncingBall(500, 500, 20, server.BouncingBall.BallSpeed.SLOW)
+    ball = server.BouncingBall(500, 500, 20)
     new_ball_img = ball.increment_ball()
 
     queue_a.put(new_ball_img)
 
-    p1 = Process(target=client.process_a, args=(queue_a, queue_b,))
+    p1 = Process(target=client.process_images, args=(queue_a, queue_b,))
     p1.start()
     p2 = Process(target=server.calculate_error, args=(ball, queue_b, queue_c,))
     p2.start()
@@ -38,5 +38,7 @@ def test_finding_circle_error_after_one_slow_increment():
     assert dist_error < 10.0
 
 
+
 if __name__ == '__main__':
-    view_ball()
+    # test_ball_moving()
+    test_error_finding()
