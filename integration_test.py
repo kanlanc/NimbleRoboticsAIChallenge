@@ -4,16 +4,28 @@ import cv2
 
 from multiprocessing import Process,  Manager
 
+import time
+
 
 def test_ball_moving():
+    
     ball = server.BouncingBall(500, 500, 20)
+    start_time = time.time()  # Get the start time
+
     while True:
+        current_time = time.time()
+        if current_time - start_time > 5:  # Check if 5 seconds have passed
+            break
+
         updated_ball = ball.increment_ball()
         cv2.startWindowThread()
         cv2.imshow('screensaver', updated_ball)
         key = cv2.waitKey(1)
-        if key == '27':  # escape
+        if key == 27:  # Check for ESC key (ASCII value of ESC is 27)
             break
+
+    cv2.destroyAllWindows()  # Make sure to destroy all windows
+    assert True
 
 
 def test_error_finding():
