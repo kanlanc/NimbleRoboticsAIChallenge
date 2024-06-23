@@ -1,36 +1,47 @@
-# NimbleRoboticsAIChallenge
+# Usage
+## Running locally
+1. Install requirements
+```
+pip install -r requirements.txt
+```
 
+2. Run server 
+```
+python server.py
+```
+3. Run client
+```
+python client.py
+```
+## Running on minikube
+1. First install and configure minikube [(guide)](https://minikube.sigs.k8s.io/docs/start/)
+2. Use minikube's docker instance
+```
+eval $(minikube docker-env)
+```
+3. Build images
+```
+ docker build -f docker/Dockerfile.server --tag 'nimble-server-image' .
+ docker build -f docker/Dockerfile.client --tag 'nimble-client-image' .
+```
+4. Deploy to minikube
+```
+kubectl apply -f deployment/server-deployment.yaml
+kubectl apply -f deployment/client-deployment.yaml
+```
 
+5. Check status on dashboard
+```
+minikube dashboard
+```
 
-The ball webrtc works, and the error is being calculated correctly.
-
-Done with the following libraries:
-
-- opencv-python
-- numpy
-- aiortc
-- aiohttp
-- scipy
-- asyncio
-
-
-## How to run
-
-Both docker-compose and Kubernetes are supported.
-
-The simplest way to run the server and client is to run the integration_test file.
-
-### Docker-compose
-
-1. Run `docker-compose up` to start the server and client.
-
-2. The server will open a window with the ball moving around. It will also open a window with the error.
-
-### Kubernetes
-
-1. Run `kubectl apply -f kubernetes/` to deploy the server and client.
-
-2. The server will open a window with the ball moving around.
-
-
+## Running tests
+1. Install dev dependencies
+```
+pip install -r requirements-dev
+```
+2. Run test
+```
+pytest
+```
 

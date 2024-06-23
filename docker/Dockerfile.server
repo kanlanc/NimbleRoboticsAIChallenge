@@ -1,0 +1,8 @@
+FROM python:3.11-slim
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+WORKDIR /usr/src/app
+COPY server.py ball_bouncing_track.py utils.py requirements.txt  ./
+RUN pip install -r requirements.txt 
+EXPOSE 1235
+CMD ["python", "server.py", "--host", "client-service.default.svc.cluster.local"]
+
