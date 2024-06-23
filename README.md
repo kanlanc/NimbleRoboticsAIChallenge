@@ -18,6 +18,8 @@ Done with the following libraries:
 
 Both docker-compose and Kubernetes are supported.
 
+The simplest way to run the server and client is to run the integration_test file.
+
 ### Docker-compose
 
 1. Run `docker-compose up` to start the server and client.

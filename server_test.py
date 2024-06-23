@@ -1,6 +1,6 @@
 # UNIT TESTS
 import pytest
-import server
+import docker_server.server as server
 
 def test_bouncing_ball_small_radius_error():
     with pytest.raises(ValueError, match="Invalid ball radius: too small"):

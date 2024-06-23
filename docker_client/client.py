@@ -12,12 +12,15 @@ class Client:
         self.queue_images = Manager().Queue()
         self.queue_centers = Manager().Queue()
         self.peer_conn = RTCPeerConnection()
-        self.setup_client()
 
     async def setup_client(self):
 
-        image_signal = TcpSocketSignaling("127.0.0.1", 9001)
-        cordinate_signal = TcpSocketSignaling("127.0.0.1", 9002)
+        # image_signal = TcpSocketSignaling("127.0.0.1", 9001)
+        # cordinate_signal = TcpSocketSignaling("127.0.0.1", 9002)
+
+
+        image_signal = TcpSocketSignaling('rtc-server', 9001) 
+        cordinate_signal = TcpSocketSignaling('rtc-server', 9002) 
 
 
         await image_signal.connect()
@@ -58,7 +61,7 @@ async def send_coordinates(peer_conn, queue):
 async def run_client(client):
     await client.setup_client()
     await client.receive_frame()
-
+ 
 if __name__ == '__main__':
     client = Client()
     process = Process(target=process_images, args=(client.queue_images, client.queue_centers))

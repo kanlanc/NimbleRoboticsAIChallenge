@@ -1,4 +1,4 @@
-import client, server as server
+import docker_client.client as client, docker_server.server as server
 
 import cv2
 
